@@ -13,4 +13,6 @@ public interface GeolocationService {
     List<Geolocation> readAll();
 
     List<Geolocation> getGeolocation(String ipAddress);
+
+    
 }
