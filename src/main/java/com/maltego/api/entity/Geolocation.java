@@ -8,8 +8,7 @@ import java.util.List;
 public class Geolocation implements Serializable {
 
     @Id
-    private int id;
-    private String ipAddress;
+    private int geolocationId;
     @OneToOne()
     @JoinColumn(name = "location_id", insertable = false)
     private Location location;
@@ -17,20 +16,12 @@ public class Geolocation implements Serializable {
     public Geolocation() {
     }
 
-    public int getId() {
-        return id;
+    public int getGeolocationId() {
+        return geolocationId;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getIpAddress() {
-        return ipAddress;
-    }
-
-    public void setIpAddress(String ipAddress) {
-        this.ipAddress = ipAddress;
+    public void setGeolocationId(int geolocationId) {
+        this.geolocationId = geolocationId;
     }
 
     public Location getLocation() {
@@ -44,8 +35,7 @@ public class Geolocation implements Serializable {
     @Override
     public String toString() {
         return "Geolocation{" +
-                "id=" + id +
-                ", ipAddress='" + ipAddress + '\'' +
+                "id=" + geolocationId +
                 ", location=" + location +
                 '}';
     }
