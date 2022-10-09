@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 public class IpAddressController {
@@ -33,4 +34,10 @@ public class IpAddressController {
     public Data createRecord(@RequestBody Data data){
         return this.ipAddressService.createRecord(data);
     }
+
+    @RequestMapping(value = "getAbuseRecords", method = RequestMethod.GET)
+    public Set<Data> getAbuseRecords(@RequestParam("ipAddress") String ipAddress){
+        return this.ipAddressService.getAbuseRecords(ipAddress);
+    }
+
 }

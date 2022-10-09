@@ -5,6 +5,7 @@ import com.maltego.api.entity.IpAddress;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 public interface IpAddressService {
@@ -16,4 +17,6 @@ public interface IpAddressService {
     IpAddress getGeolocation(String ipAddress);
 
     Data createRecord(Data data);
+
+    Set<Data> getAbuseRecords(String ipAddress);
 }

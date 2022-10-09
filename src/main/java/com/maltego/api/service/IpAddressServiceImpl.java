@@ -52,4 +52,9 @@ public class IpAddressServiceImpl implements IpAddressService {
         return data;
     }
 
+    @Transactional
+    public Set<Data> getAbuseRecords(String ipAddress) {
+        return ipAddressRepository.findAbuseRecords(ipAddress);
+    }
+
 }
