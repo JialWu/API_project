@@ -2,6 +2,7 @@ package com.maltego.api.entity;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 public class IpAddress {
@@ -15,25 +16,11 @@ public class IpAddress {
     @JoinColumn(name = "location_id", insertable = false)
     private Location location;
 
-    @OneToMany(mappedBy = "ipAddress")
-    private List<AbuseRecords> recordsList;
+    @OneToMany(cascade = {CascadeType.ALL})
+    @JoinColumn(name = "ip_id")
+    private Set<Data> data;
 
     public IpAddress() {
-    }
-
-    public IpAddress(int id, String ipAddress, Location location, List<AbuseRecords> recordsList) {
-        this.id = id;
-        this.ipAddress = ipAddress;
-        this.location = location;
-        this.recordsList = recordsList;
-    }
-
-    public String getIpAddress() {
-        return ipAddress;
-    }
-
-    public void setIpAddress(String ipAddress) {
-        this.ipAddress = ipAddress;
     }
 
     public int getId() {
@@ -44,6 +31,14 @@ public class IpAddress {
         this.id = id;
     }
 
+    public String getIpAddress() {
+        return ipAddress;
+    }
+
+    public void setIpAddress(String ipAddress) {
+        this.ipAddress = ipAddress;
+    }
+
     public Location getLocation() {
         return location;
     }
@@ -52,12 +47,12 @@ public class IpAddress {
         this.location = location;
     }
 
-    public List<AbuseRecords> getRecordsList() {
-        return recordsList;
+    public Set<Data> getData() {
+        return data;
     }
 
-    public void setRecordsList(List<AbuseRecords> recordsList) {
-        this.recordsList = recordsList;
+    public void setData(Set<Data> data) {
+        this.data = data;
     }
 
     @Override
@@ -66,7 +61,7 @@ public class IpAddress {
                 "id=" + id +
                 ", ipAddress='" + ipAddress + '\'' +
                 ", location=" + location +
-                ", recordsList=" + recordsList +
+                ", data=" + data +
                 '}';
     }
 }

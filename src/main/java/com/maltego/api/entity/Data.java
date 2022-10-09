@@ -1,30 +1,31 @@
 package com.maltego.api.entity;
 
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
+import org.hibernate.annotations.TypeDefs;
+
+import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
+@TypeDefs({
+        @TypeDef(name = "json", typeClass = JsonBinaryType.class)
+})
 @Entity
-public class RecordData {
+public class Data {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int dataId;
 
     private String ipAddress;
 
-    @ElementCollection
+    @Column(columnDefinition = "json")
+    @Type(type = "json")
     private List<Integer> abuseCategories = new ArrayList<Integer>();
 
-    public RecordData() {
-    }
-
-    public RecordData(int dataId, String ipAddress, List<Integer> abuseCategories) {
-        this.dataId = dataId;
-        this.ipAddress = ipAddress;
-        this.abuseCategories = abuseCategories;
+    public Data() {
     }
 
     public int getDataId() {
@@ -53,7 +54,7 @@ public class RecordData {
 
     @Override
     public String toString() {
-        return "RecordData{" +
+        return "Data{" +
                 "dataId=" + dataId +
                 ", ipAddress='" + ipAddress + '\'' +
                 ", abuseCategories=" + abuseCategories +

@@ -1,6 +1,6 @@
 package com.maltego.api.service;
 
-import com.maltego.api.entity.Geolocation;
+import com.maltego.api.entity.Data;
 import com.maltego.api.entity.IpAddress;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +13,7 @@ public interface IpAddressService {
 
     List<IpAddress> readAll();
 
-    List<IpAddress> getGeolocation(String ipAddress);
+    IpAddress getGeolocation(String ipAddress);
 
-    void createRecord();
+    Data createRecord(Data data);
 }

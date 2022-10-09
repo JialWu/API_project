@@ -1,6 +1,5 @@
 package com.maltego.api.repository;
 
-import com.maltego.api.entity.Geolocation;
 import com.maltego.api.entity.IpAddress;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -14,7 +13,7 @@ public interface IpAddressRepository extends JpaRepository<IpAddress, Integer> {
     boolean existsByIpAddress(String ipAddress);
 
     @Query("SELECT DISTINCT ip FROM IpAddress ip INNER JOIN ip.location WHERE ip.location.locationId = ip.id AND ip.ipAddress = :ipAddress")
-    List<IpAddress> queryBy(String ipAddress);
+    IpAddress queryBy(String ipAddress);
 
     @Query("select max(ip.id) from IpAddress ip")
     Integer findMaxId();
