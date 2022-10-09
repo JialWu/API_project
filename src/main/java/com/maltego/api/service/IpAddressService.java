@@ -19,4 +19,6 @@ public interface IpAddressService {
     Data createRecord(Data data);
 
     Set<Data> getAbuseRecords(String ipAddress);
+
+    List<Data> getAbuseRecordsByCategory(String ipAddress, Integer category);
 }

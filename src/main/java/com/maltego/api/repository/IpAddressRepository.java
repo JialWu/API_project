@@ -14,7 +14,7 @@ public interface IpAddressRepository extends JpaRepository<IpAddress, Integer> {
 
     boolean existsByIpAddress(String ipAddress);
 
-    @Query("SELECT DISTINCT ip FROM IpAddress ip INNER JOIN ip.location WHERE ip.location.locationId = ip.id AND ip.ipAddress = :ipAddress")
+    @Query("SELECT ip FROM IpAddress ip INNER JOIN ip.location WHERE ip.location.locationId = ip.id AND ip.ipAddress = :ipAddress")
     IpAddress queryBy(String ipAddress);
 
     @Query("select max(ip.id) from IpAddress ip")
