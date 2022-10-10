@@ -1,9 +1,7 @@
 package com.maltego.api.entity;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 import java.io.Serializable;
 
 @Entity
@@ -17,6 +15,12 @@ public class Location implements Serializable {
     private String region;
 
     public Location() {
+    }
+
+    public Location(int locationId, String country, String region) {
+        this.locationId = locationId;
+        this.country = country;
+        this.region = region;
     }
 
     public int getLocationId() {

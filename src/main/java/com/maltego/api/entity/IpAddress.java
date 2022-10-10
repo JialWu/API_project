@@ -23,6 +23,13 @@ public class IpAddress {
     public IpAddress() {
     }
 
+    public IpAddress(int id, String ipAddress, Location location, Set<Data> data) {
+        this.id = id;
+        this.ipAddress = ipAddress;
+        this.location = location;
+        this.data = data;
+    }
+
     public int getId() {
         return id;
     }

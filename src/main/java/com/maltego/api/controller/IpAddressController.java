@@ -10,9 +10,12 @@ import io.github.bucket4j.Refill;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.time.Duration;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
@@ -31,6 +34,19 @@ public class IpAddressController {
                 .build();
     }
 
+    @GetMapping("/register")
+    public ModelAndView showForm(Model model) {
+        IpAddress ipAddress = new IpAddress();
+        model.addAttribute("ipAddress", ipAddress);
+
+        List<String> listProfession = Arrays.asList("Developer", "Tester", "Architect");
+        model.addAttribute("listProfession", listProfession);
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("register_form.html");
+
+        return modelAndView;
+    }
     @RequestMapping(value = "createIpAddress", method = RequestMethod.POST)
     public String createGeolocation(@RequestBody IpAddress ipAddress){
         return  this.ipAddressService.createIpAddress(ipAddress);
@@ -42,7 +58,7 @@ public class IpAddressController {
     }
 
     @RequestMapping(value = "getGeolocation", method = RequestMethod.GET)
-    public IpAddress getGeolocation(@RequestParam("ipAddress") String ipAddress){
+    public List<Object[]> getGeolocation(@RequestParam("ipAddress") String ipAddress){
         return  this.ipAddressService.getGeolocation(ipAddress);
     }
 
@@ -57,7 +73,6 @@ public class IpAddressController {
             return ResponseEntity.ok(this.ipAddressService.getAbuseRecords(ipAddress));
         }
         return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS).build();
-
     }
 
     @RequestMapping(value = "getAbuseRecordsByCategory", method = RequestMethod.GET)

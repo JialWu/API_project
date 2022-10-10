@@ -28,6 +28,12 @@ public class Data {
     public Data() {
     }
 
+    public Data(int dataId, String ipAddress, List<Integer> abuseCategories) {
+        this.dataId = dataId;
+        this.ipAddress = ipAddress;
+        this.abuseCategories = abuseCategories;
+    }
+
     public int getDataId() {
         return dataId;
     }

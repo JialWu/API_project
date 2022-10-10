@@ -1,6 +1,7 @@
 package com.maltego.api.provider;
 
 import com.maltego.api.model.ApiKeyAuthenticationToken;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.InsufficientAuthenticationException;

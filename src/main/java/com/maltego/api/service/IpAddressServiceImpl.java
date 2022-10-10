@@ -2,15 +2,13 @@ package com.maltego.api.service;
 
 import com.maltego.api.entity.Data;
 import com.maltego.api.entity.IpAddress;
+import com.maltego.api.entity.Location;
 import com.maltego.api.repository.IpAddressRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class IpAddressServiceImpl implements IpAddressService {
@@ -39,10 +37,10 @@ public class IpAddressServiceImpl implements IpAddressService {
     }
 
     @Transactional
-    public IpAddress getGeolocation(String ipAddress) {
+    public List<Object[]> getGeolocation(String ipAddress) {
         try {
             if(ipAddressRepository.existsByIpAddress(ipAddress)){
-                return ipAddressRepository.queryBy(ipAddress);
+                return ipAddressRepository.findGeolocation(ipAddress);
             }
         } catch (Exception e) {
             throw e;
@@ -52,7 +50,7 @@ public class IpAddressServiceImpl implements IpAddressService {
 
     @Override
     public Data createRecord(Data data) {
-        IpAddress ipAddress = ipAddressRepository.queryBy(data.getIpAddress());
+        IpAddress ipAddress = ipAddressRepository.findIpAddress(data.getIpAddress());
         Set<Data> listData = ipAddress.getData();
         listData.add(data);
         ipAddress.setData(listData);
