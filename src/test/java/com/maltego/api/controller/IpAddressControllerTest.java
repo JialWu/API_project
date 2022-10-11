@@ -2,13 +2,11 @@ package com.maltego.api.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.maltego.api.entity.Data;
-import com.maltego.api.entity.IpAddress;
+import com.maltego.api.entity.Geolocation;
 import com.maltego.api.entity.Location;
-import com.maltego.api.service.IpAddressService;
-import org.aspectj.lang.annotation.Before;
+import com.maltego.api.service.GeolocationService;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,9 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import javax.persistence.Column;
 import java.util.*;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -36,10 +32,13 @@ public class IpAddressControllerTest {
     ObjectMapper mapper;
 
     @MockBean
-    IpAddressController ipAddressController;
+    GeolocationController ipAddressController;
 
     @MockBean
-    IpAddressService ipAddressService;
+    AbuseRecordsController abuseRecordsController;
+
+    @MockBean
+    GeolocationService ipAddressService;
 
     @Test
     public void getGeolocation_success() throws Exception {
@@ -48,7 +47,7 @@ public class IpAddressControllerTest {
 
         Set<Data> listData = Collections.emptySet();
         Location location = new Location(0, "US", "California");
-        IpAddress ipAddress = new IpAddress(0, "8.8.8.8", location, listData);
+        Geolocation ipAddress = new Geolocation(0, "8.8.8.8", location);
 
         Mockito.when(ipAddressService.getGeolocation(ipAddress.getIpAddress())).thenReturn(ipAddress);
 
@@ -74,9 +73,9 @@ public class IpAddressControllerTest {
 
         Set<Data> listData = Set.of(data);
         Location location = new Location(0, "US", "California");
-        IpAddress ipAddress = new IpAddress(0, "8.8.8.8", location, listData);
+        Geolocation ipAddress = new Geolocation(0, "8.8.8.8", location);
 
-        Mockito.when(ipAddressController.getAbuseRecords("8.8.8.8")).thenReturn(ResponseEntity.ok(listData));
+        Mockito.when(abuseRecordsController.getAbuseRecords("8.8.8.8")).thenReturn(ResponseEntity.ok(listData));
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.get("/getAbuseRecords")
                 .param("ipAddress", "8.8.8.8")
@@ -95,9 +94,9 @@ public class IpAddressControllerTest {
 
         Set<Data> listData = Collections.emptySet();
         Location location = new Location(0, "US", "California");
-        IpAddress ipAddress = new IpAddress(0, "8.8.8.8", location, listData);
+        Geolocation ipAddress = new Geolocation(0, "8.8.8.8", location);
 
-        Mockito.when(ipAddressController.createRecord(data)).thenReturn(data);
+        Mockito.when(abuseRecordsController.createRecord(data)).thenReturn(data);
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/abuse")
                 .header("x-api-key", "ValidApiKey")
@@ -119,9 +118,9 @@ public class IpAddressControllerTest {
 
         Set<Data> listData = Collections.emptySet();
         Location location = new Location(0, "US", "California");
-        IpAddress ipAddress = new IpAddress(0, "8.8.8.8", location, listData);
+        Geolocation ipAddress = new Geolocation(0, "8.8.8.8", location);
 
-        Mockito.when(ipAddressController.createRecord(data)).thenReturn(data);
+        Mockito.when(abuseRecordsController.createRecord(data)).thenReturn(data);
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/abuse")
                 .characterEncoding("utf-8")

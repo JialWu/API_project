@@ -16,7 +16,6 @@ import java.util.List;
 public class Data {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int dataId;
 
     private String ipAddress;

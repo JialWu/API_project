@@ -1,11 +1,9 @@
 package com.maltego.api.entity;
 
 import javax.persistence.*;
-import java.util.List;
-import java.util.Set;
 
 @Entity
-public class IpAddress {
+public class Geolocation {
 
     @Id
     private int id;
@@ -16,18 +14,13 @@ public class IpAddress {
     @JoinColumn(name = "location_id", insertable = false)
     private Location location;
 
-    @OneToMany(cascade = {CascadeType.ALL})
-    @JoinColumn(name = "ip_id")
-    private Set<Data> data;
-
-    public IpAddress() {
+    public Geolocation() {
     }
 
-    public IpAddress(int id, String ipAddress, Location location, Set<Data> data) {
+    public Geolocation(int id, String ipAddress, Location location) {
         this.id = id;
         this.ipAddress = ipAddress;
         this.location = location;
-        this.data = data;
     }
 
     public int getId() {
@@ -54,21 +47,12 @@ public class IpAddress {
         this.location = location;
     }
 
-    public Set<Data> getData() {
-        return data;
-    }
-
-    public void setData(Set<Data> data) {
-        this.data = data;
-    }
-
     @Override
     public String toString() {
         return "IpAddress{" +
                 "id=" + id +
                 ", ipAddress='" + ipAddress + '\'' +
                 ", location=" + location +
-                ", data=" + data +
                 '}';
     }
 }
