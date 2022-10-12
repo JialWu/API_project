@@ -30,7 +30,7 @@ public class AbuseRecordsController {
                 .build();
     }
 
-    @RequestMapping(value = "absuse", method = RequestMethod.POST)
+    @RequestMapping(value = "abuse", method = RequestMethod.POST)
     public Data createRecord(@RequestBody Data data) {
         return this.abuseRecordsService.createRecord(data);
     }

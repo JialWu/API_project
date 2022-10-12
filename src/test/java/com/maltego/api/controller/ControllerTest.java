@@ -24,7 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc(addFilters = true)
-public class IpAddressControllerTest {
+public class ControllerTest {
     @Autowired
     MockMvc mockMvc;
 
@@ -32,7 +32,7 @@ public class IpAddressControllerTest {
     ObjectMapper mapper;
 
     @MockBean
-    GeolocationController ipAddressController;
+    GeolocationController geolocationController;
 
     @MockBean
     AbuseRecordsController abuseRecordsController;
@@ -49,7 +49,7 @@ public class IpAddressControllerTest {
         Location location = new Location(0, "US", "California");
         Geolocation ipAddress = new Geolocation(0, "8.8.8.8", location);
 
-        Mockito.when(ipAddressService.getGeolocation(ipAddress.getIpAddress())).thenReturn(ipAddress);
+        Mockito.when(geolocationController.getGeolocation(ipAddress.getIpAddress())).thenReturn(ipAddress);
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.get("/getGeolocation")
                 .param("ipAddress", "8.8.8.8")
