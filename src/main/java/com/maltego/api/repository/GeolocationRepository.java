@@ -15,4 +15,7 @@ public interface GeolocationRepository extends JpaRepository<Geolocation, Intege
 
     @Query("SELECT g FROM Geolocation g INNER JOIN g.location WHERE g.location.locationId = g.id AND g.ipAddress = :ipAddress")
     Geolocation findGeolocation(String ipAddress);
+
+    @Query("SELECT COUNT(g) = 1 FROM Geolocation g where g.ipAddress = :ipAddress")
+    boolean findExistByIpAddress(String ipAddress);
 }

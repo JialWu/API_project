@@ -1,5 +1,6 @@
 package com.maltego.api.service;
 
+import com.maltego.api.entity.AbuseRecord;
 import com.maltego.api.entity.Data;
 import org.springframework.stereotype.Service;
 
@@ -9,9 +10,9 @@ import java.util.Set;
 @Service
 public interface AbuseRecordsService {
 
-    Data createRecord(Data data);
+    void createRecord(AbuseRecord abuseRecord);
 
-    Set<Data> getAbuseRecords(String ipAddress);
+    Set<AbuseRecord> getAbuseRecords(String ipAddress);
 
-    List<Data> getAbuseRecordsByCategory(String ipAddress, Integer category);
+    List<AbuseRecord> getAbuseRecordsByCategory(String ipAddress, Integer category);
 }

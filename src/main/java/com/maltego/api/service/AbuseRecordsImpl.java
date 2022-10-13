@@ -1,5 +1,6 @@
 package com.maltego.api.service;
 
+import com.maltego.api.entity.AbuseRecord;
 import com.maltego.api.entity.Data;
 import com.maltego.api.repository.AbuseRecordsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,18 +17,18 @@ public class AbuseRecordsImpl implements AbuseRecordsService{
     private AbuseRecordsRepository abuseRecordsRepository;
 
     @Override
-    public Data createRecord(Data data) {
+    public void createRecord(AbuseRecord abuseRecord) {
         try {
-            data.setDataId(null == abuseRecordsRepository.findMaxId()? 0 : abuseRecordsRepository.findMaxId() + 1);
-            abuseRecordsRepository.save(data);
-            return data;
+            //data.setDataId(null == abuseRecordsRepository.findMaxId()? 0 : abuseRecordsRepository.findMaxId() + 1);
+            abuseRecordsRepository.save(abuseRecord);
+            //return abuseRecord;
         } catch(Exception e) {
             throw e;
         }
     }
 
     @Override
-    public Set<Data> getAbuseRecords(String ipAddress) {
+    public Set<AbuseRecord> getAbuseRecords(String ipAddress) {
         try {
             return abuseRecordsRepository.findAbuseRecords(ipAddress);
         } catch(Exception e) {
@@ -36,13 +37,13 @@ public class AbuseRecordsImpl implements AbuseRecordsService{
     }
 
     @Override
-    public List<Data> getAbuseRecordsByCategory(String ipAddress, Integer category) {
+    public List<AbuseRecord> getAbuseRecordsByCategory(String ipAddress, Integer category) {
         try {
-            Set<Data> allRecordsOfIp = abuseRecordsRepository.findAbuseRecords(ipAddress);
-            List<Data> recordsByCategory = new ArrayList<Data>();
+            Set<AbuseRecord> allRecordsOfIp = abuseRecordsRepository.findAbuseRecords(ipAddress);
+            List<AbuseRecord> recordsByCategory = new ArrayList<AbuseRecord>();
 
             allRecordsOfIp.stream().forEach(record -> {
-                if (record.getAbuseCategories().iterator().next() == category) {
+                if (record.getData().getAbuseCategories().iterator().next() == category) {
                     recordsByCategory.add(record);
                 }
             });

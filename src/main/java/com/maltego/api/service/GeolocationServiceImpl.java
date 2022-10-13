@@ -36,35 +36,10 @@ public class GeolocationServiceImpl implements GeolocationService {
 
     @Override
     public Geolocation getGeolocation(String ipAddress) {
-        return geolocationRepository.findGeolocation(ipAddress);
+        try {
+            return geolocationRepository.findGeolocation(ipAddress);
+        } catch (Exception e) {
+            throw e;
+        }
     }
-
-    //@Override
-    //public Data createRecord(Data data) {
-    //    Geolocation ipAddress = ipAddressRepository.findIpAddress(data.getIpAddress());
-    //    Set<Data> listData = ipAddress.getData();
-    //    listData.add(data);
-    //    ipAddress.setData(listData);
-    //    ipAddressRepository.save(ipAddress);
-    //    return data;
-    //}
-
-    //@Transactional
-    //public Set<Data> getAbuseRecords(String ipAddress) {
-    //    return ipAddressRepository.findAbuseRecords(ipAddress);
-    //}
-
-    //@Override
-    //public List<Data> getAbuseRecordsByCategory(String ipAddress, Integer category) {
-    //    Set<Data> allRecords = ipAddressRepository.findAbuseRecords(ipAddress);
-    //    List<Data> recordsByCategory = new ArrayList<Data>();
-
-    //    allRecords.stream().forEach(record -> {
-    //        if (record.getAbuseCategories().iterator().next() == category) {
-    //            recordsByCategory.add(record);
-    //        }
-    //    });
-    //    return recordsByCategory;
-    //}
-
 }

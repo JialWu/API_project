@@ -42,14 +42,14 @@ public class ControllerTest {
 
     @Test
     public void getGeolocation_success() throws Exception {
-        List<Integer> abuseCategories = List.of(1);
+        List<Object> abuseCategories = List.of(1);
         Data data = new Data(1, "8.8.8.8", abuseCategories);
 
         Set<Data> listData = Collections.emptySet();
         Location location = new Location(0, "US", "California");
         Geolocation ipAddress = new Geolocation(0, "8.8.8.8", location);
 
-        Mockito.when(geolocationController.getGeolocation(ipAddress.getIpAddress())).thenReturn(ipAddress);
+        Mockito.when(geolocationController.getGeolocation(ipAddress.getIpAddress())).thenReturn(ResponseEntity.ok(ipAddress));
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.get("/getGeolocation")
                 .param("ipAddress", "8.8.8.8")
@@ -75,7 +75,7 @@ public class ControllerTest {
         Location location = new Location(0, "US", "California");
         Geolocation ipAddress = new Geolocation(0, "8.8.8.8", location);
 
-        Mockito.when(abuseRecordsController.getAbuseRecords("8.8.8.8")).thenReturn(ResponseEntity.ok(listData));
+        //Mockito.when(abuseRecordsController.getAbuseRecordsJson("8.8.8.8")).thenReturn(ResponseEntity.ok(listData));
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.get("/getAbuseRecords")
                 .param("ipAddress", "8.8.8.8")
@@ -96,7 +96,7 @@ public class ControllerTest {
         Location location = new Location(0, "US", "California");
         Geolocation ipAddress = new Geolocation(0, "8.8.8.8", location);
 
-        Mockito.when(abuseRecordsController.createRecord(data)).thenReturn(data);
+        Mockito.when(abuseRecordsController.createRecord(data)).thenReturn(ResponseEntity.ok(data));
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/abuse")
                 .header("x-api-key", "ValidApiKey")
@@ -120,7 +120,7 @@ public class ControllerTest {
         Location location = new Location(0, "US", "California");
         Geolocation ipAddress = new Geolocation(0, "8.8.8.8", location);
 
-        Mockito.when(abuseRecordsController.createRecord(data)).thenReturn(data);
+        Mockito.when(abuseRecordsController.createRecord(data)).thenReturn(ResponseEntity.ok(data));
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/abuse")
                 .characterEncoding("utf-8")

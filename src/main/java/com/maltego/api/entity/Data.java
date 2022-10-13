@@ -6,17 +6,18 @@ import org.hibernate.annotations.TypeDef;
 import org.hibernate.annotations.TypeDefs;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 @TypeDefs({
         @TypeDef(name = "json", typeClass = JsonBinaryType.class)
 })
-@Entity
-public class Data {
-
-    @Id
-    private int dataId;
+@Embeddable
+public class Data implements Serializable {
 
     private String ipAddress;
 
@@ -24,21 +25,16 @@ public class Data {
     @Type(type = "json")
     private List<Integer> abuseCategories = new ArrayList<Integer>();
 
+    @Column(name = "time")
+    private LocalDateTime localDateTime;
+
     public Data() {
     }
 
-    public Data(int dataId, String ipAddress, List<Integer> abuseCategories) {
-        this.dataId = dataId;
+    public Data(String ipAddress, List<Integer> abuseCategories, LocalDateTime localDateTime) {
         this.ipAddress = ipAddress;
         this.abuseCategories = abuseCategories;
-    }
-
-    public int getDataId() {
-        return dataId;
-    }
-
-    public void setDataId(int dataId) {
-        this.dataId = dataId;
+        this.localDateTime = localDateTime;
     }
 
     public String getIpAddress() {
@@ -57,12 +53,20 @@ public class Data {
         this.abuseCategories = abuseCategories;
     }
 
+    public LocalDateTime getLocalDateTime() {
+        return localDateTime;
+    }
+
+    public void setLocalDateTime(LocalDateTime localDateTime) {
+        this.localDateTime = localDateTime;
+    }
+
     @Override
     public String toString() {
         return "Data{" +
-                "dataId=" + dataId +
-                ", ipAddress='" + ipAddress + '\'' +
+                "ipAddress='" + ipAddress + '\'' +
                 ", abuseCategories=" + abuseCategories +
+                ", localDate=" + localDateTime +
                 '}';
     }
 }
