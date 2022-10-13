@@ -66,7 +66,7 @@ public class Data implements Serializable {
         return "Data{" +
                 "ipAddress='" + ipAddress + '\'' +
                 ", abuseCategories=" + abuseCategories +
-                ", localDate=" + localDateTime +
+                ", localDateTime=" + localDateTime +
                 '}';
     }
 }
